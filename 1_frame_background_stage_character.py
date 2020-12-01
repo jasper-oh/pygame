@@ -206,7 +206,11 @@ while running:
                         "to_y": -6,
                         "init_spd_y": ball_speed_y[ball_img_index+1]
                     })
+
                 break
+        else:
+            continue
+        break
 
     if ball_to_remove > -1:
         del balls[ball_to_remove]
