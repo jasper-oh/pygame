@@ -170,6 +170,35 @@ while running:
             if weapon_rect.colliderect(ball_rect):
                 weapon_to_remove = weapon_idx
                 ball_to_remove = ball_idx
+
+                # 가장 작은 공이 아니면 다음 단계의 공으로 나눠주기
+                if ball_img_index < 3:
+                    # 현재 공크기 정보를 가지고 옴
+                    ball_width = ball_rect.size[0]
+                    ball_height = ball_rect.size[1]
+
+                    # 나눠진 공 정보
+                    small_ball_rect = ball_images[ball_img_index+1].get_rect()
+                    small_ball_width = small_ball_rect.size[0]
+                    small_ball_height = small_ball_rect.size[1]
+                    # 왼쪽으로 튕겨가는 작은 공
+                    balls.append({
+                        "pos_x": ball_pos_x + (ball_width/2)-(small_ball_width/2),
+                        "pos_y": ball_pos_y + (ball_height/2)-(small_ball_height/2),
+                        "img_idx": ball_img_index + 1,
+                        "to_x": -3,
+                        "to_y": -6,
+                        "init_spd_y": ball_speed_y[ball_img_index+1]
+                    })
+                    # 오른쪽으로 튕겨가는 작은 공
+                    balls.append({
+                        "pos_x": ball_pos_x + (ball_width/2)-(small_ball_width/2),
+                        "pos_y": ball_pos_y + (ball_height/2)-(small_ball_height/2),
+                        "img_idx": ball_img_index + 1,
+                        "to_x": 3,
+                        "to_y": -6,
+                        "init_spd_y": ball_speed_y[ball_img_index+1]
+                    })
                 break
 
     if ball_to_remove > -1:
